@@ -25,7 +25,9 @@ Route::controller(ZooController::class)->group(function(){
     Route::post('/zoologico', 'store_zoologico');
     Route::get('/zoologico', 'show_zoologico');
 
+    Route::post('/animal', 'store_animal');
+    Route::get('/animal', 'show_animal');
+
     Route::post('/alimentos', 'store_alimentos');
     Route::post('/funcionario', 'store_funcionario');
-    Route::post('/animal', 'store_animal');
 });
