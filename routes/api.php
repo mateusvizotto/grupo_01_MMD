@@ -30,4 +30,6 @@ Route::controller(ZooController::class)->group(function(){
 
     Route::post('/alimentos', 'store_alimentos');
     Route::post('/funcionario', 'store_funcionario');
+
+    Route::post('/jaula', 'store_jaula');
 });

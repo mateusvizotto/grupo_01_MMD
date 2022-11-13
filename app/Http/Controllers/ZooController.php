@@ -9,6 +9,7 @@ use App\Models\FuncionariosModel;
 use App\Models\JaulaModel;
 use App\Models\ZooModel;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Funcoes;
 use DateTime;
 use DatePeriod;
 use DateInterval;
@@ -33,15 +34,23 @@ class ZooController extends Controller
     //ANIMAL
     public function store_animal(Request $request)
     {
+        $zoo = new ZooModel();
         $animal = new AnimaisModel();
-        $animal->nome = $request->nome;
-        $animal->idade = $request->idade;
-        $animal->peso = $request->peso;
-        $animal->sexo = $request->sexo;
-        $animal->especie = $request->especie;
-        $animal->paisOrigem = $request->pais_origem;
-        $animal->estadoOrigem = $request->estado_origem;
-        $animal->save();
+        $id_zoologico = Funcoes::busca_zoologico($request->nome_zoologico);
+        if($id_zoologico != null){
+            $animal->nome = $request->nome;
+            $animal->idade = $request->idade;
+            $animal->peso = $request->peso;
+            $animal->sexo = $request->sexo;
+            $animal->especie = $request->especie;
+            $animal->paisOrigem = $request->pais_origem;
+            $animal->estadoOrigem = $request->estado_origem;
+            $animal->fk_zoologico_id = $id_zoologico;
+            $animal->save();
+            return "Mateus cadastrado com sucesso!";
+        }else{
+            return "Falha no cadastro do Mateus";
+        }
     }
     public function show_animal()
     {
@@ -62,17 +71,35 @@ class ZooController extends Controller
     {
         $funcionario = new FuncionariosModel();
         $zoo = new ZooModel();
-        $verificacao = $zoo->find($request->id_zoologico)->id;
-        if($verificacao != null)
+        $id_zoologico = Funcoes::busca_zoologico($request->nome_zoologico);
+        if($id_zoologico != null)
         {
             $funcionario->cpf = $request->cpf;
             $funcionario->nome = $request->nome;
             $funcionario->email = $request->email;
-            $funcionario->fk_zoologico_id = $request-> id_zoologico;
+            $funcionario->fk_zoologico_id = $id_zoologico;
             $funcionario->save();
-            return $funcionario;
+            return "Funcionario cadastrado com sucesso!";
         }else{
-            return "Esse zoologico não foi encontrado";
+            return "Não foi possivel realizar o cadastro";
+        }
+    }
+
+    public function store_jaula(Request $request)
+    {
+        $jaula = new JaulaModel();
+        $zoo = new ZooModel();
+        $id_zoologico = Funcoes::busca_zoologico($request->nome_zoologico);
+        $id_animal = Funcoes::busca_animal($request->nome_animal,$request->especie,$request->idade);
+        if($id_zoologico != null and $id_animal != null)
+        {
+            $jaula->numeroJaula = $request->numero_jaula;
+            $jaula->fk_animais_idAnimal = $id_animal;
+            $jaula->fk_zoologico_id = $id_zoologico;
+            $jaula->save();
+            return "Jaula criada com sucesso!";
+        }else{
+            return "Não foi possivel realizar o cadastro!";
         }
     }
 }
