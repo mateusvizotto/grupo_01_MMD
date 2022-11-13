@@ -15,6 +15,21 @@ use DateInterval;
 
 class ZooController extends Controller
 {
+    public function store_zoologico(Request $request)
+    {
+        $zoo = new ZooModel();
+        $zoo->nome = $request->nome;
+        $zoo->endereco = $request->endereco;
+        $zoo->save();
+    }
+    
+    public function show_zoologico()
+    {
+        $zoo = new ZooModel();
+        $zoo = $zoo->all();
+        return $zoo;
+    }
+
     public function store_alimentos(Request $request)
     {
         $alimentos = new AlimentosModel();
@@ -22,6 +37,34 @@ class ZooController extends Controller
         $alimentos->save();
         var_dump($alimentos);
     }
-// aqui vai o codigo propriamente dito da api 
 
+    public function store_funcionario(Request $request)
+    {
+        $funcionario = new FuncionariosModel();
+        $zoo = new ZooModel();
+        $verificacao = $zoo->find($request->id_zoologico)->id;
+        if($verificacao != null)
+        {
+            $funcionario->cpf = $request->cpf;
+            $funcionario->nome = $request->nome;
+            $funcionario->email = $request->email;
+            $funcionario->fk_zoologico_id = $request-> id_zoologico;
+            $funcionario->save();
+            return $funcionario;
+        }else{
+            return "Esse zoologico não foi encontrado";
+        }
+    }
+
+    public function store_animal()
+    {
+        $animal = new AnimaisModel();
+        $animal->nome = $request->nome;
+        $animal->idade = $request->idade;
+        $animal->peso = $request->peso;
+        $animal->sexo = $request->sexo;
+        $animal->paisOrigem = $request->pais_origem;
+        $animal->estadoOrigem = $request->estado_origem;
+        $animal->save();
+    }
 }

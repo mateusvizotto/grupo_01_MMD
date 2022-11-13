@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 13-Nov-2022 às 01:52
+-- Tempo de geração: 13-Nov-2022 às 19:49
 -- Versão do servidor: 10.4.25-MariaDB
 -- versão do PHP: 8.1.10
 
@@ -40,7 +40,8 @@ CREATE TABLE `alimentos` (
 
 INSERT INTO `alimentos` (`nome`, `idAlimento`, `updated_at`, `created_at`) VALUES
 ('fezes de pombo', 1, '2022-11-11 22:27:15', '2022-11-11 22:27:15'),
-('carne humana', 2, '2022-11-11 22:27:41', '2022-11-11 22:27:41');
+('carne humana', 2, '2022-11-11 22:27:41', '2022-11-11 22:27:41'),
+('carne de macaco', 3, '2022-11-13 04:34:29', '2022-11-13 04:34:29');
 
 -- --------------------------------------------------------
 
@@ -56,7 +57,10 @@ CREATE TABLE `animais` (
   `sexo` varchar(255) DEFAULT NULL,
   `paisOrigem` varchar(255) DEFAULT NULL,
   `estadoOrigem` varchar(255) DEFAULT NULL,
-  `fk_zoologico_id` int(11) DEFAULT NULL
+  `fk_zoologico_id` int(11) DEFAULT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `especie` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -80,8 +84,17 @@ CREATE TABLE `funcionarios` (
   `email` varchar(255) DEFAULT NULL,
   `nome` varchar(255) DEFAULT NULL,
   `cpf` int(11) NOT NULL,
-  `fk_zoologico_id` int(11) DEFAULT NULL
+  `fk_zoologico_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `funcionarios`
+--
+
+INSERT INTO `funcionarios` (`email`, `nome`, `cpf`, `fk_zoologico_id`, `created_at`, `updated_at`) VALUES
+('marcelo_lindao@gaymail.com', 'marcelo', 121212, 1, '2022-11-13 15:53:24', '2022-11-13 15:53:24');
 
 -- --------------------------------------------------------
 
@@ -103,8 +116,17 @@ CREATE TABLE `jaula` (
 CREATE TABLE `zoologico` (
   `id` int(11) NOT NULL,
   `nome` varchar(255) DEFAULT NULL,
-  `endereco` varchar(255) DEFAULT NULL
+  `endereco` varchar(255) DEFAULT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `zoologico`
+--
+
+INSERT INTO `zoologico` (`id`, `nome`, `endereco`, `updated_at`, `created_at`) VALUES
+(1, 'zoologico de americana', 'Av. Brasil, 2525 - Jardim Ipiranga, Americana - SP, 13468-000', '2022-11-13 15:29:27', '2022-11-13 15:29:27');
 
 --
 -- Índices para tabelas despejadas
@@ -148,7 +170,13 @@ ALTER TABLE `zoologico`
 -- AUTO_INCREMENT de tabela `alimentos`
 --
 ALTER TABLE `alimentos`
-  MODIFY `idAlimento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idAlimento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de tabela `zoologico`
+--
+ALTER TABLE `zoologico`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

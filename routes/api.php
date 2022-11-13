@@ -22,9 +22,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('team', [TeamController::class, 'index']);
 
 Route::controller(ZooController::class)->group(function(){
-    //Route::post('/login_conta','store_conta');
-    //Route::get('/login_conta','index_all');                   EXEMPLOS 
-    //Route::put('/login_conta/{id}', 'update_saldo');
+    Route::post('/zoologico', 'store_zoologico');
+    Route::get('/zoologico', 'show_zoologico');
+
     Route::post('/alimentos', 'store_alimentos');
-    
+    Route::post('/funcionario', 'store_funcionario');
+    Route::post('/animal', 'store_animal');
 });
