@@ -32,6 +32,7 @@ Route::controller(ZooController::class)->group(function(){
     Route::post('/alimentos', 'store_alimentos');
 
     Route::post('/funcionario', 'store_funcionario');
+    Route::get('/funcionario', 'show_funcionario');
     Route::post('/funcionario-do-zoologico', 'show_funcionario_zoologico');#Mostar os funcionarios filtrados por zoológico
 
     Route::post('/jaula', 'store_jaula');
