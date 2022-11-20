@@ -90,6 +90,12 @@ class ZooController extends Controller
             return "Não foi possivel realizar o cadastro";
         }
     }
+    public function show_funcionario_zoologico(Request $request)
+    {
+        $zoo = new ZooModel();
+        $id_zoologico = Funcoes::busca_zoologico($request->nome_zoologico);
+        return Funcoes::busca_funcionarios_zoologico_id($id_zoologico);
+    }
 
     public function store_jaula(Request $request)
     {

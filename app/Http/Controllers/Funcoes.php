@@ -73,6 +73,27 @@ class Funcoes extends Controller
         }
         return json_encode($array);
     }
+
+    public static function busca_funcionarios_zoologico_id($id)
+    {
+        $funcionario = new FuncionariosModel();
+        $funcionario = $funcionario->all();
+        $json_funcionario = json_decode($funcionario);
+        //var_dump($json_zoo);
+        $array = [];
+        for($i = 0; $i < count($json_funcionario);$i++)
+        {
+            if($id == $json_funcionario[$i]->fk_zoologico_id)
+            {
+                array_push($array, array(
+                    "nome" => $json_funcionario[$i]->nome,
+                    "email" => $json_funcionario[$i]->email,
+                    "cpf" => $json_funcionario[$i]->cpf
+                ));
+            }
+        }
+        return json_encode($array);
+    }
 }
 
 ?>
