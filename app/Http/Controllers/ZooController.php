@@ -120,4 +120,10 @@ class ZooController extends Controller
             return "Não foi possivel realizar o cadastro!";
         }
     }
+    public function show_jaula()
+    {
+        $jaula = new JaulaModel();
+        $jaula = $jaula->all();
+        return $jaula;
+    }
 }

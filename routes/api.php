@@ -36,4 +36,5 @@ Route::controller(ZooController::class)->group(function(){
     Route::post('/funcionario-do-zoologico', 'show_funcionario_zoologico');#Mostar os funcionarios filtrados por zoológico
 
     Route::post('/jaula', 'store_jaula');
+    Route::get('/jaula', 'show_jaula');
 });
