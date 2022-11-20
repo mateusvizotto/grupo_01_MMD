@@ -48,6 +48,31 @@ class Funcoes extends Controller
         echo "Animal não encontrado <br>";
         return null;
     }
+
+    public static function busca_animal_zoologico_id($id)
+    {
+        $animal = new AnimaisModel();
+        $animal = $animal->all();
+        $json_animal = json_decode($animal);
+        //var_dump($json_zoo);
+        $array = [];
+        for($i = 0; $i < count($json_animal);$i++)
+        {
+            if($id == $json_animal[$i]->fk_zoologico_id)
+            {
+                array_push($array, array(
+                    "nome" => $json_animal[$i]->nome,
+                    "peso" => $json_animal[$i]->peso,
+                    "idade" => $json_animal[$i]->idade,
+                    "sexo" => $json_animal[$i]->sexo,
+                    "paisOrigem" => $json_animal[$i]->paisOrigem,
+                    "estadoOrigem" => $json_animal[$i]->estadoOrigem,
+                    "especie" => $json_animal[$i]->especie
+                ));
+            }
+        }
+        return json_encode($array);
+    }
 }
 
 ?>

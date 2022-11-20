@@ -47,9 +47,9 @@ class ZooController extends Controller
             $animal->estadoOrigem = $request->estado_origem;
             $animal->fk_zoologico_id = $id_zoologico;
             $animal->save();
-            return "Mateus cadastrado com sucesso!";
+            return "Animal cadastrado com sucesso!";
         }else{
-            return "Falha no cadastro do Mateus";
+            return "Falha no cadastro do Animal";
         }
     }
     public function show_animal()
@@ -57,6 +57,12 @@ class ZooController extends Controller
         $animal = new AnimaisModel();
         $animal = $animal->all();
         return $animal;
+    }
+    public function show_animal_zoologico(Request $request)
+    {
+        $zoo = new ZooModel();
+        $id_zoologico = Funcoes::busca_zoologico($request->nome_zoologico);
+        return Funcoes::busca_animal_zoologico_id($id_zoologico);
     }
 
     public function store_alimentos(Request $request)
