@@ -94,6 +94,25 @@ class Funcoes extends Controller
         }
         return json_encode($array);
     }
+
+    public static function busca_jaula_zoologico_id($id)
+    {
+        $jaula = new JaulaModel();
+        $jaula = $jaula->all();
+        $json_jaula = json_decode($jaula);
+        //var_dump($json_zoo);
+        $array = [];
+        for($i = 0; $i < count($json_jaula);$i++)
+        {
+            if($id == $json_jaula[$i]->fk_zoologico_id)
+            {
+                array_push($array, array(
+                    "numero_jaula" => $json_jaula[$i]->numeroJaula,
+                ));
+            }
+        }
+        return json_encode($array);
+    }
 }
 
 ?>

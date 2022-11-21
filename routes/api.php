@@ -37,4 +37,5 @@ Route::controller(ZooController::class)->group(function(){
 
     Route::post('/jaula', 'store_jaula');
     Route::get('/jaula', 'show_jaula');
+    Route::post('/jaula-do-zoologico', 'show_jaula_zoologico');#Mostar as jaulas filtrados por zoológico
 });

@@ -126,4 +126,10 @@ class ZooController extends Controller
         $jaula = $jaula->all();
         return $jaula;
     }
+    public function show_jaula_zoologico(Request $request)
+    {
+        $zoo = new ZooModel();
+        $id_zoologico = Funcoes::busca_zoologico($request->nome_zoologico);
+        return Funcoes::busca_jaula_zoologico_id($id_zoologico);
+    }
 }
