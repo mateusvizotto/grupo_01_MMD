@@ -29,7 +29,8 @@ Route::controller(ZooController::class)->group(function(){
     Route::get('/animal', 'show_animal');
     Route::post('/animal-do-zoologico', 'show_animal_zoologico');#Mostar os animais filtrados por zoológico
 
-    Route::post('/alimentos', 'store_alimentos');
+    Route::post('/alimento', 'store_alimentos');
+    Route::get('/alimento', 'show_alimentos');
 
     Route::post('/funcionario', 'store_funcionario');
     Route::get('/funcionario', 'show_funcionario');

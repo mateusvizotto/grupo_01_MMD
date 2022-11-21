@@ -70,7 +70,12 @@ class ZooController extends Controller
         $alimentos = new AlimentosModel();
         $alimentos->nome = $request->nome_alimento;
         $alimentos->save();
-        var_dump($alimentos);
+    }
+    public function show_alimentos()
+    {
+        $alimentos = new AlimentosModel();
+        $alimentos = $alimentos->all();
+        return $alimentos;
     }
 
     public function store_funcionario(Request $request)
