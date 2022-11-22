@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Tempo de geração: 22-Nov-2022 às 16:01
--- Versão do servidor: 10.4.25-MariaDB
--- versão do PHP: 8.1.10
+-- Host: localhost
+-- Tempo de geração: 22/11/2022 às 02:18
+-- Versão do servidor: 10.4.21-MariaDB
+-- Versão do PHP: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `alimentos`
+-- Estrutura para tabela `alimentos`
 --
 
 CREATE TABLE `alimentos` (
@@ -35,20 +35,19 @@ CREATE TABLE `alimentos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Extraindo dados da tabela `alimentos`
+-- Despejando dados para a tabela `alimentos`
 --
 
 INSERT INTO `alimentos` (`nome`, `idAlimento`, `updated_at`, `created_at`) VALUES
 ('grama', 1, '2022-11-21 01:15:38', '2022-11-11 22:27:15'),
 ('carne de vaca', 2, '2022-11-21 01:15:23', '2022-11-11 22:27:41'),
 ('carne de macaco', 3, '2022-11-13 04:34:29', '2022-11-13 04:34:29'),
-('nozes', 5, '2022-11-21 04:22:40', '2022-11-21 04:22:40'),
-('maça', 6, '2022-11-22 17:23:32', '2022-11-22 17:23:32');
+('nozes', 5, '2022-11-21 04:22:40', '2022-11-21 04:22:40');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `animais`
+-- Estrutura para tabela `animais`
 --
 
 CREATE TABLE `animais` (
@@ -66,7 +65,7 @@ CREATE TABLE `animais` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Extraindo dados da tabela `animais`
+-- Despejando dados para a tabela `animais`
 --
 
 INSERT INTO `animais` (`idade`, `peso`, `idAnimal`, `nome`, `sexo`, `paisOrigem`, `estadoOrigem`, `fk_zoologico_id`, `updated_at`, `created_at`, `especie`) VALUES
@@ -76,7 +75,7 @@ INSERT INTO `animais` (`idade`, `peso`, `idAnimal`, `nome`, `sexo`, `paisOrigem`
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `consumo_alimento`
+-- Estrutura para tabela `consumo_alimento`
 --
 
 CREATE TABLE `consumo_alimento` (
@@ -87,17 +86,25 @@ CREATE TABLE `consumo_alimento` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Extraindo dados da tabela `consumo_alimento`
+-- Despejando dados para a tabela `consumo_alimento`
 --
 
 INSERT INTO `consumo_alimento` (`fk_animais_idAnimal`, `fk_alimento_idAlimento`, `created_at`, `updated_at`) VALUES
-(1, 1, '2022-11-22 16:52:03', '2022-11-22 16:52:03'),
-(2, 1, '2022-11-22 16:52:31', '2022-11-22 16:52:31');
+(1, 1, '2022-11-21 05:11:26', '2022-11-21 05:11:26'),
+(2, 1, '2022-11-21 03:03:50', '2022-11-21 03:03:50'),
+(1, 1, '2022-11-22 03:41:57', '2022-11-22 03:41:57'),
+(1, 1, '2022-11-22 03:42:05', '2022-11-22 03:42:05'),
+(1, 1, '2022-11-22 03:42:05', '2022-11-22 03:42:05'),
+(1, 1, '2022-11-22 03:42:06', '2022-11-22 03:42:06'),
+(1, 1, '2022-11-22 03:42:07', '2022-11-22 03:42:07'),
+(1, 1, '2022-11-22 03:42:07', '2022-11-22 03:42:07'),
+(1, 1, '2022-11-22 03:42:08', '2022-11-22 03:42:08'),
+(1, 5, '2022-11-22 03:42:24', '2022-11-22 03:42:24');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `funcionarios`
+-- Estrutura para tabela `funcionarios`
 --
 
 CREATE TABLE `funcionarios` (
@@ -110,17 +117,16 @@ CREATE TABLE `funcionarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Extraindo dados da tabela `funcionarios`
+-- Despejando dados para a tabela `funcionarios`
 --
 
 INSERT INTO `funcionarios` (`email`, `nome`, `cpf`, `fk_zoologico_id`, `created_at`, `updated_at`) VALUES
-('joao@gmail.com', 'joao', 121212, 1, '2022-11-20 22:44:39', '2022-11-13 15:53:24'),
-('marcelo_lindao@gaymail.com', 'marcelo', 131313, 1, '2022-11-22 17:19:48', '2022-11-22 17:19:48');
+('joao@gmail.com', 'joao', 121212, 1, '2022-11-20 22:44:39', '2022-11-13 15:53:24');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `jaula`
+-- Estrutura para tabela `jaula`
 --
 
 CREATE TABLE `jaula` (
@@ -132,7 +138,7 @@ CREATE TABLE `jaula` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Extraindo dados da tabela `jaula`
+-- Despejando dados para a tabela `jaula`
 --
 
 INSERT INTO `jaula` (`numeroJaula`, `fk_animais_idAnimal`, `fk_zoologico_id`, `created_at`, `updated_at`) VALUES
@@ -141,7 +147,7 @@ INSERT INTO `jaula` (`numeroJaula`, `fk_animais_idAnimal`, `fk_zoologico_id`, `c
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `zoologico`
+-- Estrutura para tabela `zoologico`
 --
 
 CREATE TABLE `zoologico` (
@@ -153,7 +159,7 @@ CREATE TABLE `zoologico` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Extraindo dados da tabela `zoologico`
+-- Despejando dados para a tabela `zoologico`
 --
 
 INSERT INTO `zoologico` (`id`, `nome`, `endereco`, `updated_at`, `created_at`) VALUES
@@ -164,44 +170,44 @@ INSERT INTO `zoologico` (`id`, `nome`, `endereco`, `updated_at`, `created_at`) V
 --
 
 --
--- Índices para tabela `alimentos`
+-- Índices de tabela `alimentos`
 --
 ALTER TABLE `alimentos`
   ADD PRIMARY KEY (`idAlimento`);
 
 --
--- Índices para tabela `animais`
+-- Índices de tabela `animais`
 --
 ALTER TABLE `animais`
   ADD PRIMARY KEY (`idAnimal`);
 
 --
--- Índices para tabela `funcionarios`
+-- Índices de tabela `funcionarios`
 --
 ALTER TABLE `funcionarios`
   ADD PRIMARY KEY (`cpf`);
 
 --
--- Índices para tabela `jaula`
+-- Índices de tabela `jaula`
 --
 ALTER TABLE `jaula`
   ADD PRIMARY KEY (`numeroJaula`);
 
 --
--- Índices para tabela `zoologico`
+-- Índices de tabela `zoologico`
 --
 ALTER TABLE `zoologico`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT de tabelas despejadas
+-- AUTO_INCREMENT para tabelas despejadas
 --
 
 --
 -- AUTO_INCREMENT de tabela `alimentos`
 --
 ALTER TABLE `alimentos`
-  MODIFY `idAlimento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idAlimento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `animais`

@@ -35,7 +35,6 @@ class Funcoes extends Controller
         $animal = new AnimaisModel();
         $animal = $animal->all();
         $json_animal = json_decode($animal);
-        //var_dump($json_zoo);
         for($i = 0; $i < count($json_animal);$i++)
         {
             if($nome_animal == $json_animal[$i]->nome and $especie == $json_animal[$i]->especie and
@@ -54,7 +53,6 @@ class Funcoes extends Controller
         $animal = new AnimaisModel();
         $animal = $animal->all();
         $json_animal = json_decode($animal);
-        //var_dump($json_zoo);
         $array = [];
         for($i = 0; $i < count($json_animal);$i++)
         {
@@ -79,7 +77,6 @@ class Funcoes extends Controller
         $funcionario = new FuncionariosModel();
         $funcionario = $funcionario->all();
         $json_funcionario = json_decode($funcionario);
-        //var_dump($json_zoo);
         $array = [];
         for($i = 0; $i < count($json_funcionario);$i++)
         {
@@ -100,7 +97,6 @@ class Funcoes extends Controller
         $jaula = new JaulaModel();
         $jaula = $jaula->all();
         $json_jaula = json_decode($jaula);
-        //var_dump($json_zoo);
         $array = [];
         for($i = 0; $i < count($json_jaula);$i++)
         {
@@ -152,43 +148,37 @@ class Funcoes extends Controller
     public static function busca_animal_consumo_alimento($nome)
     {
         $id_alimento = Funcoes::busca_alimento_id($nome);
-        $animal = new AnimaisModel();
-        $animal = $animal->all();
-        $consumo = new ConsumoAlimentoModel();
-        $consumo = $consumo->all();
-        $json_consumo = json_decode($consumo);
-        $lista_id = [];
+        $consumo = new ConsumoAlimentoModel();  
+        $consumo = $consumo->all();             
+        $json_consumo = json_decode($consumo); 
+
+        $lista_id = []; 
+
         for($i = 0; $i < count($json_consumo);$i++)
         {
             if($id_alimento == $json_consumo[$i]->fk_alimento_idAlimento)
-            {
-                var_dump($json_consumo[$i]->fk_alimento_idAlimento);
-                // array_push($lista_id, array(
-                //     $json_consumo[$i]->$fk_animais_idAnimal
-                // ));
-            }
-        }
-
-        $json_animal = json_decode($animal);
-        $lista_animal = [];
-        $array_completed;
-        for($i = 0; $i < count($lista_id);$i++)
-        {
-            if($lista_id[$i] == $json_animal[$i]->idAnimal)
-            {
-                array_push($array, array(
-                    "nome" => $json_animal[$i]->nome,
-                    "peso" => $json_animal[$i]->peso,
-                    "idade" => $json_animal[$i]->idade,
-                    "sexo" => $json_animal[$i]->sexo,
-                    "paisOrigem" => $json_animal[$i]->paisOrigem,
-                    "estadoOrigem" => $json_animal[$i]->estadoOrigem,
-                    "especie" => $json_animal[$i]->especie
+            {                                                               
+                array_push($lista_id, array(
+                    $json_consumo[$i]->fk_animais_idAnimal
                 ));
-                $array_completed = json_encode($array);
             }
         }
-        //return $array_completed;
+        return $lista_id;
+        
+    }
+
+    public static function busca_array_id_animais($array_id)
+    {
+        $animais=[];
+        for($i = 0; $i < count($array_id); $i++)
+        {
+            $animais[$i] = DB::table('animais')
+                ->select('nome', 'peso', 'idade', 'especie', 'sexo', 'paisOrigem', 'estadoOrigem')
+                ->where('idAnimal', '=', $array_id[$i])
+                ->get();
+            $animais[$i]->toJson();
+        }
+        return $animais;
     }
 
     public static function busca_animal_id($id)
@@ -196,12 +186,10 @@ class Funcoes extends Controller
         $animal = new AnimaisModel();
         $animal = $animal->all();
         $json_animal = json_decode($animal);
-        //var_dump($json_zoo);
         $array = [];
         $array_completed;
         for($i = 0; $i < count($json_animal);$i++)
         {
-            //var_dump($i);
             if($id == $json_animal[$i]->idAnimal)
             {
                 array_push($array, array(
@@ -217,6 +205,40 @@ class Funcoes extends Controller
             }
         }
         return $array_completed;
+    }
+
+    public static function busca_consumo_alimentos_animal_id($id_animal)
+    {
+        $consumo = new ConsumoAlimentoModel();  
+        $consumo = $consumo->all();            
+        $json_consumo = json_decode($consumo);  
+
+        $lista_alimento_id = []; 
+
+        for($i = 0; $i < count($json_consumo);$i++)
+        {
+            if($id_animal == $json_consumo[$i]->fk_animais_idAnimal)
+            {                                   
+                array_push($lista_alimento_id, array(
+                    $json_consumo[$i]->fk_alimento_idAlimento
+                ));
+            }
+        }
+        return $lista_alimento_id;  
+    }
+
+    public static function busca_array_id_alimentos($array_alimentos_id)
+    {
+        $alimentos=[];
+        for($i = 0; $i < count($array_alimentos_id); $i++)
+        {
+            $alimentos[$i] = DB::table('alimentos')
+                ->select('nome')
+                ->where('idAlimento', '=', $array_alimentos_id[$i])
+                ->get();
+            $alimentos[$i]->toJson();
+        }
+        return $alimentos;
     }
 }
 

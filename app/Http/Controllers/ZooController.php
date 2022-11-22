@@ -87,21 +87,22 @@ class ZooController extends Controller
         $consumo->fk_alimento_idAlimento=$id_alimento;
         $consumo->save();
     }
-    public function show_animais_consumo_alimento(Request $request){
-        $animal = new AnimaisModel();
-        $alimento = new AlimentosModel();
-        $json_animais = Funcoes::busca_animal_consumo_alimento($request->nome_alimento);
+    public function show_animais_consumo_alimento(Request $request)
+    {
+        //listar todos os animais que consomenm um determinado alimento
+        $animais_id = Funcoes::busca_animal_consumo_alimento($request->nome_alimento);
+        $json_animais = Funcoes::busca_array_id_animais($animais_id);
         return $json_animais;
-        //$consumo = new ConsumoAlimentoModel();
-        //return Funcoes::busca_animal_id($id_animal);
-        //var_dump($id_animal);
     }
-    // public function show_alimento_consumidos_animais(Request $request){
-    //     $animal = new AnimaisModel();
-    //     $alimento = new AlimentosModel();
-    //     $id_animal = Funcoes::busca_animal($request->nome_animal, $request->especie, $request->idade);
-    //     $consumo = new ConsumoAlimentoModel();
-    // }
+
+    public function show_alimento_consumidos_animais(Request $request)
+    {
+        //listar todos os alimentos consumidos por um único animal
+        $id_animal = Funcoes::busca_animal($request->nome_animal, $request->especie, $request->idade);
+        $lista_alimentos = Funcoes::busca_consumo_alimentos_animal_id($id_animal);
+        $json_alimetos = Funcoes::busca_array_id_alimentos($lista_alimentos);
+        return $json_alimetos;
+    }
 
     public function store_funcionario(Request $request)
     {
