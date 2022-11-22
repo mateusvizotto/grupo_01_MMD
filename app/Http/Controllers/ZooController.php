@@ -77,6 +77,31 @@ class ZooController extends Controller
         $alimentos = $alimentos->all();
         return $alimentos;
     }
+    public function show_alimentos_animal(Request $request)
+    {
+        $zoo = new ZooModel();
+        $id_animal = Funcoes::busca_animal($request->nome_animal, $request->especie, $request->idade);
+        $id_alimento = Funcoes::busca_alimento_id($request->nome_alimento);
+        $consumo = new ConsumoAlimentoModel();
+        $consumo->fk_animais_idAnimal=$id_animal;
+        $consumo->fk_alimento_idAlimento=$id_alimento;
+        $consumo->save();
+    }
+    public function show_animais_consumo_alimento(Request $request){
+        $animal = new AnimaisModel();
+        $alimento = new AlimentosModel();
+        $json_animais = Funcoes::busca_animal_consumo_alimento($request->nome_alimento);
+        return $json_animais;
+        //$consumo = new ConsumoAlimentoModel();
+        //return Funcoes::busca_animal_id($id_animal);
+        //var_dump($id_animal);
+    }
+    // public function show_alimento_consumidos_animais(Request $request){
+    //     $animal = new AnimaisModel();
+    //     $alimento = new AlimentosModel();
+    //     $id_animal = Funcoes::busca_animal($request->nome_animal, $request->especie, $request->idade);
+    //     $consumo = new ConsumoAlimentoModel();
+    // }
 
     public function store_funcionario(Request $request)
     {

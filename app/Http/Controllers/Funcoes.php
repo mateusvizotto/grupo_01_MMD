@@ -113,6 +113,111 @@ class Funcoes extends Controller
         }
         return json_encode($array);
     }
+
+    public static function busca_alimento_id($nome)
+    {
+        $alimento = new AlimentosModel();
+        $alimento = $alimento->all();
+        $json_alimento = json_decode($alimento);
+        //var_dump($json_zoo);
+        $array = [];
+        for($i = 0; $i < count($json_alimento);$i++)
+        {
+            if($nome == $json_alimento[$i]->nome)
+            {
+                return $json_alimento[$i]->idAlimento;
+            }
+        }
+    }
+
+    public static function busca_animal_consumo_alimento_id($id)
+    {
+        $consumo = new ConsumoAlimentoModel();
+        $consumo = $consumo->all();
+        $json_consumo = json_decode($consumo);
+        //var_dump($json_zoo);
+        $array = [];
+        for($i = 0; $i < count($json_consumo);$i++)
+        {
+            if($id == $json_consumo[$i]->fk_alimento_idAlimento)
+            {
+                array_push($array, array(
+                    "id_animal" => $json_animal[$i]->fk_animais_idAnimal
+                ));
+            }
+        }
+        return json_encode($array);
+    }
+
+    public static function busca_animal_consumo_alimento($nome)
+    {
+        $id_alimento = Funcoes::busca_alimento_id($nome);
+        $animal = new AnimaisModel();
+        $animal = $animal->all();
+        $consumo = new ConsumoAlimentoModel();
+        $consumo = $consumo->all();
+        $json_consumo = json_decode($consumo);
+        $lista_id = [];
+        for($i = 0; $i < count($json_consumo);$i++)
+        {
+            if($id_alimento == $json_consumo[$i]->fk_alimento_idAlimento)
+            {
+                var_dump($json_consumo[$i]->fk_alimento_idAlimento);
+                // array_push($lista_id, array(
+                //     $json_consumo[$i]->$fk_animais_idAnimal
+                // ));
+            }
+        }
+
+        $json_animal = json_decode($animal);
+        $lista_animal = [];
+        $array_completed;
+        for($i = 0; $i < count($lista_id);$i++)
+        {
+            if($lista_id[$i] == $json_animal[$i]->idAnimal)
+            {
+                array_push($array, array(
+                    "nome" => $json_animal[$i]->nome,
+                    "peso" => $json_animal[$i]->peso,
+                    "idade" => $json_animal[$i]->idade,
+                    "sexo" => $json_animal[$i]->sexo,
+                    "paisOrigem" => $json_animal[$i]->paisOrigem,
+                    "estadoOrigem" => $json_animal[$i]->estadoOrigem,
+                    "especie" => $json_animal[$i]->especie
+                ));
+                $array_completed = json_encode($array);
+            }
+        }
+        //return $array_completed;
+    }
+
+    public static function busca_animal_id($id)
+    {
+        $animal = new AnimaisModel();
+        $animal = $animal->all();
+        $json_animal = json_decode($animal);
+        //var_dump($json_zoo);
+        $array = [];
+        $array_completed;
+        for($i = 0; $i < count($json_animal);$i++)
+        {
+            //var_dump($i);
+            if($id == $json_animal[$i]->idAnimal)
+            {
+                array_push($array, array(
+                    "nome" => $json_animal[$i]->nome,
+                    "peso" => $json_animal[$i]->peso,
+                    "idade" => $json_animal[$i]->idade,
+                    "sexo" => $json_animal[$i]->sexo,
+                    "paisOrigem" => $json_animal[$i]->paisOrigem,
+                    "estadoOrigem" => $json_animal[$i]->estadoOrigem,
+                    "especie" => $json_animal[$i]->especie
+                ));
+                $array_completed = json_encode($array);
+            }
+        }
+        return $array_completed;
+    }
 }
 
 ?>

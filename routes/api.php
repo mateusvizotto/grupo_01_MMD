@@ -31,6 +31,9 @@ Route::controller(ZooController::class)->group(function(){
 
     Route::post('/alimento', 'store_alimentos');
     Route::get('/alimento', 'show_alimentos');
+    Route::post('/alimento-animal', 'show_alimentos_animal');#relaciona o animal a alimento
+    Route::post('/animais-consumo-alimento', 'show_animais_consumo_alimento');#animais que se alimentam de um alimento
+    Route::post('/alimento-consumidos-animais', 'show_alimento_consumidos_animais');#alimentos que alimentam um animal
 
     Route::post('/funcionario', 'store_funcionario');
     Route::get('/funcionario', 'show_funcionario');
